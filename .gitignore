@@ -1,17 +1,6 @@
 .DS_Store
 
-application/config/*
 application/cache/*
-application/core/*
-application/languaje/*
-application/logs/*
-application/third_party/*
-user_guide/
-composer.json
-contributing.md
-license.txt
-readme.rst
-
 !application/cache/index.html
 
 application/logs/*
@@ -20,7 +9,7 @@ application/logs/*
 !application/*/.htaccess
 
 composer.lock
-
+user_guide/
 user_guide_src/build/*
 user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
