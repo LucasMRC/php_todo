@@ -6,7 +6,8 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#20e34d",endColorstr="#b3f2ff",GradientType=1);
 }
 
-h1, p {
+h1, 
+p {
 	font-family: Caveat, cursive;
 }
 
@@ -15,16 +16,23 @@ h1 {
 	font-weight: 700;
 }
 
+li.list-group-item, input.form-control {
+	opacity: .8;
+	background-color: #ffffcb;
+}
+
 li.list-group-item {
 	padding: 0;
 	width: 100%;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 li.list-group-item p {
 	font-size: 1.5rem;
 	margin: 0;
 	padding: 0 .75rem;
+	width: 100%;
 }
 
 li button.btn {
@@ -39,20 +47,28 @@ li.d-flex button.btn {
 
 li.d-flex:hover button.btn {
 	opacity: 1;
-	transform: none;
+	transform: translateX(0%);
 }
 
-input.form-control, li button.btn {
+input.form-control, 
+li button.btn {
 	border: none;
 	border-radius: 0;
 	transition: transform ease 300ms;
 }
 
-li button.btn:hover {
-	transform: scale(1.05);
-	outline: none;
+li button.btn:hover,
+form.borrar:hover button.btn-danger {
+	transform: scale(1.1);
 }
 
-input.form-control:active, li button.btn:active {
+input.form-control:focus,
+li button.btn:focus {
 	outline: none;
+	box-shadow: none;
+}
+
+p.realizada {
+	text-decoration: line-through;
+	color: gray;
 }
