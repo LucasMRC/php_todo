@@ -2,28 +2,39 @@
 
 class Tarea_model extends CI_Model {
 
-	public $tabla = 'tareas';
-	public $primaryKey = 'id';
-
-	public function __construct() {
-		parent::__construct();
-		$this->return_as = 'array';
-	}
-
-	public function get_all() {
+	public function mostrarTareas() {
 		$query = $this->db->get('tareas');
-        return $query->result();
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return false;
+		}
 	}
 	
-	public function crear($tarea){
-		$query = $this->db->insert_string('tareas', ['descripcion' => $tarea]);
-		return $this->db->query($query);
+	public function crearTarea() {
+		$descripcion = $this->input->post('descripcion');
+		// guardar nueva tarae en base de datos
+		$this->db->set('descripcion', $descripcion);
+		$this->db->insert('tareas');
+		
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+	
+	public function borrarTarea() {
+		$id = $this->input->post('id');
+		// modificar el campo deleted de la tarea en base de datos
+		$this->db->set('deleted', '1');
+		$this->db->where('id', $id);
+		$this->db->update('tareas');
 
-	public function eliminar($tarea){
-		$query = $this->db->update_string('tareas', ['deleted' => '1'], 'id=' . $tarea);
-		return $this->db->query($query);
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
-
-?>

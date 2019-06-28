@@ -4,41 +4,48 @@ class ToDoList extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		// Cargar base de datos y modelo
 		$this->load->database();
 		$this->load->model('tarea_model');
+
 		$this->load->helper('url');
 	}
-
+	
 	public function index()
-	{
-		$items = $this->tarea_model->get_all();
-		
-		$this->data['tareas'] = $items;
+	{		
+		// incluir las vistas
+		$this->load->view('partials/header');
+		$this->load->view('index');
+		$this->load->view('partials/footer');
 
-		$this->load->view('index', $this->data);
+		// header('Access-Control-Allow-Origin: http://localhost', false);
 		
+	}
+	
+	public function mostrarTareas() {
+		$resultado = $this->tarea_model->mostrarTareas();
+		echo json_encode($resultado);
 	}
 	
 	public function crearTarea() {
-		$nuevaTarea = $this->input->post('descripcion');
-		
-		$operacion = $this->tarea_model->crear($nuevaTarea);
+		$resultado = $this->tarea_model->crearTarea();
 
-		if ( ! $operacion) {
-			echo 'Algo salió mal';
-		} else {
-			header("Location: /ToDo");
+		// establecer bandera que indica si es exitosa la opeación
+		$mensaje['exito'] = false;
+		if ($resultado) {
+			$mensaje['exito'] = true;
 		}
+		echo json_encode($mensaje);
 	}
 	
-	public function eliminarTarea() {
-		$id = $this->input->post('delete');
-		$operacion = $this->tarea_model->eliminar($id);
-		
-		if ( ! $operacion) {
-			echo 'Algo salió mal';
-		} else {
-			header("Location: /ToDo");
+	public function borrarTarea() {
+		$resultado = $this->tarea_model->borrarTarea();
+
+		// establecer bandera que indica si es exitosa la opeación
+		$mensaje['exito'] = false;
+		if ($resultado) {
+			$mensaje['exito'] = true;
 		}
+		echo json_encode($mensaje);
 	}
 }
