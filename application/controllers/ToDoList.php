@@ -6,6 +6,7 @@ class ToDoList extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('tarea_model');
+		$this->load->helper('url');
 	}
 
 	public function index()
@@ -14,7 +15,7 @@ class ToDoList extends CI_Controller {
 		
 		$this->data['tareas'] = $items;
 
-		$this->load->view('todo-list', $this->data);
+		$this->load->view('index', $this->data);
 		
 	}
 	
@@ -26,18 +27,18 @@ class ToDoList extends CI_Controller {
 		if ( ! $operacion) {
 			echo 'Algo salió mal';
 		} else {
-			$this->index();
+			header("Location: /ToDo");
 		}
 	}
 	
 	public function eliminarTarea() {
 		$id = $this->input->post('delete');
 		$operacion = $this->tarea_model->eliminar($id);
-	
+		
 		if ( ! $operacion) {
 			echo 'Algo salió mal';
 		} else {
-			$this->index();
+			header("Location: /ToDo");
 		}
 	}
 }
